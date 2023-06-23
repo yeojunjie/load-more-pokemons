@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack serve --mode development",
-    "test": "jest"
+    "test": "jest --watch-all"
   },
   "keywords": [],
   "author": "",
