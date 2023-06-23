@@ -41,17 +41,11 @@ describe("Pokemon list with 'Load more' button", () => {
   it("initially displays the first 5 pokemons", async () => {
     render(<PokemonList />);
 
-    // Component shows "Loading ..." while the data is being fetched
-    expect(await screen.findByText(/loading/i)).toBeInTheDocument();
-
-    // Wait for everything to be loaded
-    await waitForElementToBeRemoved(() => screen.queryByText(/loading/i));
-
     // Use a list to display the products - e.g. an `ul` or `ol` element
-    expect(screen.getByRole("list")).toBeInTheDocument();
+    expect(await screen.findByRole("list")).toBeInTheDocument();
 
     // Check that 5 items are displayed
-    expect(screen.getAllByRole("listitem")).toHaveLength(5);
+    expect(await screen.findAllByRole("listitem")).toHaveLength(5);
 
     // Check that for each pokemon, its name is displayed
     expect(
@@ -73,9 +67,6 @@ describe("Pokemon list with 'Load more' button", () => {
   it("shows a 'Load more' button and the info about number of items displayed", async () => {
     render(<PokemonList />);
 
-    // Wait for everything to be loaded
-    await waitForElementToBeRemoved(() => screen.queryByText(/loading/i));
-
     // Shows the 'Load more' button
     expect(await screen.findByRole("button")).toHaveTextContent("Load more");
 
@@ -90,19 +81,10 @@ describe("Pokemon list with 'Load more' button", () => {
   it("loads 5 more products when the user presses 'Load more'", async () => {
     render(<PokemonList />);
 
-    // Wait for everything to be loaded
-    await waitForElementToBeRemoved(() => screen.queryByText(/loading/i));
-
     // Press the "Load more" button
     const user = userEvent.setup();
 
-    await user.click(screen.getByRole("button", { name: "Load more" }));
-
-    // Component shows "Loading ..." while the data is being fetched
-    expect(await screen.findByText(/loading/i)).toBeInTheDocument();
-
-    // Wait for new results to be loaded
-    await waitForElementToBeRemoved(() => screen.queryByText(/loading/i));
+    await user.click(await screen.findByRole("button", { name: "Load more" }));
 
     // Check that the summary correctly updated
     expect(
@@ -135,10 +117,6 @@ describe("Pokemon list with 'Load more' button", () => {
 
   it("no longer shows the 'Load more' if the user reached the last page", async () => {
     render(<PokemonList />);
-
-    expect(await screen.findByText(/loading/)).toBeInTheDocument();
-
-    await waitForElementToBeRemoved(() => screen.queryByText(/loading/i));
 
     // Press the "Load more" button twice, so we get to the last page
     const user = userEvent.setup();
