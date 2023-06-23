@@ -78,7 +78,7 @@ describe("Pokemon list with 'Load more' button", () => {
     ).toBeInTheDocument();
   });
 
-  it("loads 5 more products when the user presses 'Load more'", async () => {
+  it("loads 5 more pokemons when the user presses 'Load more'", async () => {
     render(<PokemonList />);
 
     // Press the "Load more" button
