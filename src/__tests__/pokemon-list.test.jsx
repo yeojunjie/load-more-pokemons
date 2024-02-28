@@ -125,7 +125,7 @@ describe("Pokemon list with 'Load more' button", () => {
 
     // Check that the summary correctly updated
     expect(
-      await screen.findByText("Displaying 12 of 12 results")
+      await screen.findByText(/Displaying 12 of 12 results/)
     ).toBeInTheDocument();
 
     // Check that 12 items are displayed
